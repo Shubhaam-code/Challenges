@@ -1,69 +1,54 @@
-import java.io.*;
 import java.util.*;
 
 public class Main {
 
-    static int inversionParity(String s) {
-        int ones = 0;
-        int parity = 0;
+    public static void main(String[] args) {
 
-        for (char c : s.toCharArray()) {
-            if (c == '1') {
-                ones++;
-            } else {
-                // Every previous 1 forms an inversion with this 0
-                parity ^= (ones & 1);
-            }
-        }
+        Scanner sc = new Scanner(System.in);
 
-        return parity;
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int t = Integer.parseInt(br.readLine());
+        int t = sc.nextInt();
 
         while (t-- > 0) {
 
-            int n = Integer.parseInt(br.readLine());
+            int n = sc.nextInt();
 
-            String a = br.readLine();
-            String b = br.readLine();
+            String a = sc.next();
+            String b = sc.next();
 
-            // Number of 0s and 1s must be same
-            if (!haveSameCount(a, b)) {
-                System.out.println("NO");
-                continue;
+            int oddA = 0;
+            int evenA = 0;
+
+            int oddB = 0;
+            int evenB = 0;
+
+            for (int i = 0; i < n; i++) {
+
+                // i = 0 means actual position 1 (odd)
+                if (i % 2 == 0) {
+
+                    if (a.charAt(i) == '1')
+                        oddA++;
+
+                    if (b.charAt(i) == '1')
+                        oddB++;
+
+                } else {
+
+                    if (a.charAt(i) == '1')
+                        evenA++;
+
+                    if (b.charAt(i) == '1')
+                        evenB++;
+                }
             }
 
-            // Inversion parity must be same
-            if (inversionParity(a) == inversionParity(b)) {
+            if (oddA == oddB && evenA == evenB) {
                 System.out.println("YES");
             } else {
                 System.out.println("NO");
             }
         }
-    }
 
-    static boolean haveSameCount(String a, String b) {
-
-        int countZeroA = 0;
-        int countZeroB = 0;
-
-        for (char c : a.toCharArray()) {
-            if (c == '0') {
-                countZeroA++;
-            }
-        }
-
-        for (char c : b.toCharArray()) {
-            if (c == '0') {
-                countZeroB++;
-            }
-        }
-
-        return countZeroA == countZeroB;
+        sc.close();
     }
 }
