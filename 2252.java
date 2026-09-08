@@ -83,3 +83,4 @@ public class Main {
         return (minDeletions == Integer.MAX_VALUE) ? -1 : minDeletions;
     }
 }
+2259B
